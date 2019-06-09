@@ -1,11 +1,29 @@
 import {User} from '../user/user.state';
 
+export enum SETTINGS_PROPERTIES {
+  ShowNickname = 'showNickname',
+  FontSize = 'fontSize',
+  ShowTimestamps = 'showTimestamps',
+  ShowIds = 'showIds',
+}
+
+export interface Settings {
+  showNickname: boolean;
+  fontSize: number;
+  showTimestamps: boolean;
+  showIds: boolean;
+}
+
+
 export interface Message {
   chatroomId: number;
   id: number;
+  userId?: number;
+  user?: User;
   name: string;
   email: string;
   body: string;
+  timestamps?: Date;
 }
 
 export interface ChatRoom {
@@ -19,12 +37,19 @@ export interface ChatRoom {
 
 export interface State {
   isLoaded: boolean;
-  activeChat: ChatRoom
+  activeChat: ChatRoom;
   chatRooms: ChatRoom[];
+  settings: Settings;
 }
 
 export const initialState: State = {
   isLoaded: false,
   activeChat: null,
-  chatRooms: []
+  chatRooms: [],
+  settings: {
+    showNickname: true,
+    fontSize: 16,
+    showTimestamps: false,
+    showIds: false,
+  }
 };

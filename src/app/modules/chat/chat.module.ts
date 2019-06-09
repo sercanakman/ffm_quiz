@@ -5,6 +5,7 @@ import { ChatRoomsComponent } from './chat-rooms/chat-rooms.component';
 import {ChatRoomComponent} from './chat-room/chat-room.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FontAwesomeModule} from '../../shared/modules/font-awesome.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import {FontAwesomeModule} from '../../shared/modules/font-awesome.module';
   imports: [
     CommonModule,
     NgbModule,
+    FormsModule,
     ChatRoutingModule,
     FontAwesomeModule,
   ]

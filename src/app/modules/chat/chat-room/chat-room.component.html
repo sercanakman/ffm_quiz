@@ -1,6 +1,15 @@
 <div class="card text-center">
   <div class="card-header">
-    {{(chatState$ | async).activeChat.title}}
+    <div class="row">
+      <div class="col-1">
+        <button type="button" class="btn btn-sm btn-dark" [routerLink]="['/rooms']" placement="right" ngbTooltip="Back to rooms">
+          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+        </button>
+      </div>
+      <div class="col text-center">
+        <b>Room:</b>&nbsp;{{(chatState$ | async).activeChat.title}}
+      </div>
+    </div>
   </div>
   <div id="chatroom-body" class="card-body d-flex">
     <div class="row flex-grow-1">
@@ -11,8 +20,8 @@
               <ngb-panel *ngFor="let user of (chatState$ | async).activeChat.users" [id]="user.id">
                 <ng-template ngbPanelHeader let-opened="opened">
                   <div class="d-flex align-items-center justify-content-between">
-                    <h6 class="m-0"><fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;{{user.username}}</h6>
-                    <div>
+                    <h6 class="m-0"><fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;{{settings.showIds ? '(' + user.id + ') ' : ''}}{{settings.showNickname ? user.username : user.name}}</h6>
+                    <div placement="right" ngbTooltip="View Profile">
                       <button type="button" class="btn btn-sm btn-outline-dark ml-2" ngbPanelToggle>
                         <fa-icon [icon]="['fas', 'eye']"></fa-icon>
                       </button>
@@ -38,20 +47,150 @@
               </ngb-panel>
             </ngb-accordion>
           </div>
-          <div *ngIf="isSettingsOpen" class="col">settings</div>
+          <div *ngIf="isSettingsOpen && settings" class="col">
+            <form name="form" class="p-4 needs-validation" #f="ngForm" novalidate>
+              <div class="form-row">
+                <div class="col">
+                  <div class="text-uppercase"><b>Settings</b></div>
+                  <div>
+                    <small class="text-muted">Adjust your chat preferences.</small>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="form-row">
+                <div class="col">
+                  <label for="fontSizeSlider">
+                    <small><b>Chat Font Size:</b>&nbsp;<span class="text-warning">{{settings.fontSize + ' pixels'}}</span></small>
+                  </label>
+                  <input
+                    class="form-control-range"
+                    name="fontSizeSlider"
+                    #fontSizeSlider="ngModel"
+                    type="range"
+                    [step]="0.5"
+                    [min]="12"
+                    [max]="20"
+                    [value]="settings.fontSize"
+                    id="fontSizeSlider"
+                    [(ngModel)]="settings.fontSize"
+                    (ngModelChange)="onChangeSetting(SETTINGS_PROPERTIES.FontSize)"
+                  />
+                </div>
+              </div>
+              <div class="form-row mt-3">
+              <div class="col">
+                <label>
+                  <small><b>Name Settings</b></small>
+                </label>
+              </div>
+            </div>
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      name="showNicknameSlider"
+                      id="showNicknameSlider"
+                      #showNicknameSlider="ngModel"
+                      [(ngModel)]="settings.showNickname"
+                      (ngModelChange)="onChangeSetting(SETTINGS_PROPERTIES.ShowNickname)">
+                    <label class="form-check-label" for="showNicknameSlider">
+                      <small>Show user nicknames instead of their full name</small>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      name="showIdsSlider"
+                      id="showIdsSlider"
+                      #showIdsSlider="ngModel"
+                      [(ngModel)]="settings.showIds"
+                      (ngModelChange)="onChangeSetting(SETTINGS_PROPERTIES.ShowIds)">
+                    <label class="form-check-label" for="showIdsSlider">
+                      <small>Show user IDs next to their name</small>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mt-3">
+                <div class="col">
+                  <label>
+                    <small><b>Timestamps Visibility</b></small>
+                  </label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="showTimestamps"
+                      [value]="true"
+                      id="showTimestamps"
+                      #showTimestamps="ngModel"
+                      [(ngModel)]="settings.showTimestamps"
+                      (ngModelChange)="onChangeSetting(SETTINGS_PROPERTIES.ShowTimestamps)"
+                      [checked]="settings.showTimestamps">
+                    <label class="form-check-label" for="showTimestamps">
+                      <small>Show</small>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="showTimestamps"
+                      id="hideTimestamps"
+                      #hideTimestamps="ngModel"
+                      [(ngModel)]="settings.showTimestamps"
+                      (ngModelChange)="onChangeSetting(SETTINGS_PROPERTIES.ShowTimestamps)"
+                      [value]="false"
+                      [checked]="!settings.showTimestamps">
+                    <label class="form-check-label" for="hideTimestamps">
+                      <small>Hide</small>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <div class="col">chat</div>
+      <div class="col" id="messages-list" [style.font-size.px]="settings.fontSize">
+        <div class="card mb-2" *ngFor="let message of (chatState$ | async).activeChat.messages">
+          <div class="card-body">
+            <p class="card-title mb-0">
+              <b>{{settings.showIds ? '(' + message.user.id + ') ' : ''}}{{settings.showNickname ? message.user.username : message.user.name}}</b>
+              <span *ngIf="settings.showTimestamps" class="text-muted"> wrote on <i>{{formatDate(message.timestamps) }}</i></span>
+            </p>
+            <p class="card-text">{{message.body}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="card-footer text-muted">
     <div class="row">
       <div class="col-2">
-        <button type="button" class="btn btn-link pl-0" (click)="toggleSettings()">
-          <h6 class="m-0"><fa-icon [icon]="['fas', 'cogs']"></fa-icon>&nbsp;Settings</h6>
+        <button type="button" class="btn btn-outline-dark h-100" (click)="toggleSettings()" placement="right" ngbTooltip="Toggle Settings">
+          <h6 class="m-0"><fa-icon [icon]="['fas', 'cogs']"></fa-icon></h6>
         </button>
       </div>
-      <div class="col">input</div>
+      <div class="col" *ngIf="(appState$ | async).user">
+        <form name="newMessageForm" #newMessageForm="ngForm" (ngSubmit)="sendMessage()" novalidate autocomplete="off">
+          <input autocomplete="false" name="hidden" type="text" style="display:none;">
+          <div class="input-group">
+            <input type="text" class="form-control" id="newMessage" name="newMessage" [(ngModel)]="newMessage" placeholder="Write your message...">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit"><fa-icon [icon]="['fas', 'paper-plane']"></fa-icon></button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

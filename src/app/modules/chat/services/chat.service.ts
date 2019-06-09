@@ -3,7 +3,7 @@ import {Observable, of} from 'rxjs';
 import {ChatRoom, Message} from '../../../store/chat/chat.state';
 import {rooms} from './rooms';
 import {User} from '../../../store/user/user.state';
-import {users} from './users.mock';
+import {currentUser, users} from './users.mock';
 import {messages} from './messages';
 
 // https://jsonplaceholder.typicode.com/posts
@@ -15,18 +15,20 @@ import {messages} from './messages';
 })
 export class ChatService {
 
+  private rooms: ChatRoom[] = rooms.map(this.setupChatroom);
   constructor() { }
 
   getChatRooms(): Observable<ChatRoom[]> {
-    return of(rooms.map((room: ChatRoom) => {
-      room = this.setupChatroom(room);
-      return room;
-    }));
+    return of(this.rooms);
   }
 
   getChatRoom(id: number): Observable<ChatRoom> {
-    const room = this.setupChatroom(rooms.find(r => r.id === id));
+    const room = this.rooms.find(r => r.id === id);
     return of(room);
+  }
+
+  getCurrentUser(): Observable<User> {
+    return of(currentUser);
   }
 
   private setupChatroom(room: ChatRoom): ChatRoom {
@@ -43,8 +45,19 @@ export class ChatService {
       }
     }
 
-    room.messages = []
+    room.messages = [];
     room.messages.push(...messages.filter((message: Message) => message.chatroomId === room.id));
+    let iterator = 1;
+    room.messages = room.messages.map((message: Message) => {
+      const random2 = Math.floor(Math.random() * room.users.length);
+      const user = room.users[random2];
+      message.userId = user.id;
+      message.user = user;
+      message.timestamps = new Date();
+      message.timestamps.setTime(message.timestamps.getTime() + (iterator * 1000) * 60);
+      iterator++;
+      return message;
+    });
     return room;
   }
 }

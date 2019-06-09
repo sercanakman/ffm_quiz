@@ -4,6 +4,8 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {faCogs} from '@fortawesome/free-solid-svg-icons/faCogs';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faEye} from '@fortawesome/free-solid-svg-icons/faEye';
+import {faPaperPlane} from '@fortawesome/free-solid-svg-icons/faPaperPlane';
+import {faChevronLeft} from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 
 @NgModule({
   declarations: [],
@@ -19,5 +21,7 @@ export class FontAwesomeModule {
     library.add(faUser);
     library.add(faCogs);
     library.add(faEye);
+    library.add(faPaperPlane);
+    library.add(faChevronLeft);
   }
 }

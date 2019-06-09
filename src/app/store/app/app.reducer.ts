@@ -6,6 +6,12 @@ export function reducer(state = initialState, action: All): State {
     case AppActionTypes.APP_LOAD: {
       return initialState;
     }
+    case AppActionTypes.USER_LOAD: {
+      return {
+        ...state,
+        user: action.payload
+      }
+    }
     case AppActionTypes.APP_TAB_CHANGE: {
       return {
         ...state,

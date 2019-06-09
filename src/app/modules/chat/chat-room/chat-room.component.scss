@@ -3,17 +3,33 @@
 
 :host {
   ::ng-deep {
+
+    .accordion > .card {
+      overflow: visible !important;
+    }
     .card-body,
-    .card-footer {
+    .card-footer,
+    .card-header {
       text-align: left;
 
       #users-list {
        border-right: $border-width solid $border-color;
+
+        .card-header {
+          padding-top: .25rem;
+          padding-bottom: .25rem;
+        }
       }
     }
 
     #chatroom-body {
       min-height: 50vh;
+
+      #messages-list {
+        .card-body {
+          padding: .25rem 1rem;
+        }
+      }
     }
   }
 }

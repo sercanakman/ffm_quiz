@@ -1,4 +1,6 @@
-export const messages = [
+import {Message} from '../../../store/chat/chat.state';
+
+export const messages: Message[] = [
   {
     "chatroomId": 1,
     "id": 1,

@@ -232,3 +232,27 @@ export const users: User[] = [
     }
   }
 ];
+
+export const currentUser: User = {
+  "id": 0,
+  "name": "Sercan AKMAN",
+  "username": "nynevi",
+  "email": "sercanakman@gmail.com",
+  "address": {
+    "street": "Atalar Sk. No: 33",
+    "suite": "Cemal Yılmaz Apt.",
+    "city": "Üsküdar / İstanbul",
+    "zipcode": "92998-3874",
+    "geo": {
+      "lat": "-37.3159",
+      "lng": "81.1496"
+    }
+  },
+  "phone": "+90 530 823 14 33",
+  "website": "https://github.com/nynevi",
+  "company": {
+    "name": "Sercan AKMAN",
+    "catchPhrase": "Dev like a swiss army knife",
+    "bs": "harness real-time e-markets"
+  }
+};

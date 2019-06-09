@@ -1,0 +1,57 @@
+<div class="card text-center">
+  <div class="card-header">
+    {{(chatState$ | async).activeChat.title}}
+  </div>
+  <div id="chatroom-body" class="card-body d-flex">
+    <div class="row flex-grow-1">
+      <div class="col-2" id="users-list">
+        <div class="row" *ngIf="(chatState$ | async).activeChat">
+          <div *ngIf="!isSettingsOpen" class="col">
+            <ngb-accordion [closeOthers]="true">
+              <ngb-panel *ngFor="let user of (chatState$ | async).activeChat.users" [id]="user.id">
+                <ng-template ngbPanelHeader let-opened="opened">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <h6 class="m-0"><fa-icon [icon]="['fas', 'user']"></fa-icon>&nbsp;{{user.username}}</h6>
+                    <div>
+                      <button type="button" class="btn btn-sm btn-outline-dark ml-2" ngbPanelToggle>
+                        <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                      </button>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="row">
+                    <div class="col">
+                      <p><b>Username: </b> {{user.username}}</p>
+                      <p><b>Name: </b> {{user.name}}</p>
+                      <p><b>E-mail: </b> {{user.email}}</p>
+                      <p>
+                        <b>Address: </b> {{user.address.street}}, {{user.address.suite}} / {{user.address.city}}<br />
+                        <i>{{user.address.zipcode}}</i>
+                      </p>
+                      <p><b>Phone: </b> {{user.phone}}</p>
+                      <p><b>Website: </b> {{user.website}}</p>
+                      <p><b>Company: </b> {{user.company.name}}</p>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+          <div *ngIf="isSettingsOpen" class="col">settings</div>
+        </div>
+      </div>
+      <div class="col">chat</div>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <div class="row">
+      <div class="col-2">
+        <button type="button" class="btn btn-link pl-0" (click)="toggleSettings()">
+          <h6 class="m-0"><fa-icon [icon]="['fas', 'cogs']"></fa-icon>&nbsp;Settings</h6>
+        </button>
+      </div>
+      <div class="col">input</div>
+    </div>
+  </div>
+</div>

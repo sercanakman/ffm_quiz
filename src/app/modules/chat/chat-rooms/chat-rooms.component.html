@@ -1,0 +1,31 @@
+<div class="card text-center">
+  <div class="card-header">
+    Chat Rooms
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <ngb-accordion [closeOthers]="true">
+          <ngb-panel *ngFor="let chatRoom of (chatState$ | async).chatRooms" [id]="chatRoom.id">
+            <ng-template ngbPanelHeader let-opened="opened">
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="m-0">{{chatRoom.title}}</h6>
+                <div>
+                  <button type="button" class="btn btn-sm btn-outline-dark ml-2" [routerLink]="['', chatRoom.id]">
+                    Join Room
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+              {{chatRoom.body}}
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    100 People Active in 5 Chat Rooms
+  </div>
+</div>

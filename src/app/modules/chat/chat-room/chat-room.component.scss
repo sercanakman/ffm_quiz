@@ -1,0 +1,19 @@
+@import '~bootstrap/scss/_functions.scss';
+@import '~bootstrap/scss/_variables.scss';
+
+:host {
+  ::ng-deep {
+    .card-body,
+    .card-footer {
+      text-align: left;
+
+      #users-list {
+       border-right: $border-width solid $border-color;
+      }
+    }
+
+    #chatroom-body {
+      min-height: 50vh;
+    }
+  }
+}

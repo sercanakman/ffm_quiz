@@ -15,14 +15,8 @@ const exampleObject = {
 const exampleString = "I once ate 7 cheesburgers";
 
 const exampleArray = [
-    {
-        tmpl: "I like to {opt1}, {opt2}",
-        data: {
-            opt1: "ride my",
-            opt2: "bicycle"
-        },
-    },
-    "I like to ride my bike",
+    exampleObject,
+    exampleString,
 ];
 
 const exampleNestedArray = [
@@ -48,11 +42,15 @@ const transformDataObjectToString = (object: ReplacementObject): string => {
 };
 
 /*
+    NOTE: the recursiveness is NOT limited to 4 levels deep but rather all-inclusive
+
     Edge cases are not handled (as not specified in the required context) such as:
-    - a mismatch of length between replacement and replacer values (one existing, the other missing)
+    - a mismatch of length between replacement and replacer values
+        (i.e one existing in tmpl, the other missing in data or vice versa)
     - case sensitivity of replacements
-    - multiple occurences of the replacement (i.e I am a {opt1}, {opt1} cat with opt1 equaling cat)
-    - ReplacementObject (interface) validation
+    - multiple occurences of the replacement (i.e {opt1} = happy:  'I am a {opt1}, {opt1} cat' equalling 'I am a happy happy cat')
+    - ReplacementObject (interface) validation (does not throw error or warn user
+        if there is an invalid object provided (or as a child of array)
  */
 const processData = (data: any) => {
     switch (data.constructor.name) {

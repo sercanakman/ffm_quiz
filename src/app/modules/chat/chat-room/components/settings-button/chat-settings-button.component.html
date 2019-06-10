@@ -1,0 +1,6 @@
+  <button type="button" class="btn btn-outline-dark h-100" (click)="toggleSettings()" placement="right" ngbTooltip="Toggle Settings">
+    <h6 class="m-0">
+      <fa-icon *ngIf="!(chatState$ | async).isSettingsOpen" [icon]="['fas', 'cogs']"></fa-icon>
+      <fa-icon *ngIf="(chatState$ | async).isSettingsOpen" [icon]="['fas', 'users']"></fa-icon>
+    </h6>
+  </button>

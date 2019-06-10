@@ -2,22 +2,18 @@ import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {cold, hot} from 'jasmine-marbles';
 import {Observable} from 'rxjs';
-import {ChatEffects} from './app.effects';
+import {ChatEffects} from './chat.effects';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import * as AppActions from './app.actions';
-import * as UserActions from '../user/user.actions';
-import * as WalletActions from '../wallet/wallet.actions';
-import {WalletService} from '../../shared/services/wallet.service';
-import {AuthService, LOCAL_TOKEN_KEY} from '../../shared/services/auth.service';
-import {localStorageProvider, LocalStorageToken} from '../../core/helpers/localStorage';
-import {resetLocalStorage} from '../../core/helpers/tests';
+import * as ChatActions from './chat.actions';
 import {provideMockStore} from '@ngrx/store/testing';
-import {initialAppStates} from '../../shared/mocks/app.states.mock';
+import {initialAppStates} from '../../shared/mocks/app.states';
+import {ChatService} from '../../modules/chat/services/chat.service';
+import {ChatRoom} from '../../shared/interfaces/chat-room';
 
 describe('app.effects', () => {
   let effects: ChatEffects;
   let actions: Observable<any>;
-  let authenticationService: AuthService;
+  let chatService: ChatService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,23 +21,18 @@ describe('app.effects', () => {
         HttpClientTestingModule,
       ],
       providers: [
-        {provide: 'PLATFORM_ID', useValue: 'browser'},
-        {provide: LocalStorageToken, useFactory: localStorageProvider},
         ChatEffects,
-        AuthService,
-        WalletService,
+        ChatService,
         provideMockActions(() => actions),
         provideMockStore({initialState: initialAppStates})
       ],
     });
 
     effects = TestBed.get(ChatEffects);
-    authenticationService = TestBed.get(AuthService);
+    chatService = TestBed.get(ChatService);
   });
 
   afterEach(() => {
-    // Cleanup
-    resetLocalStorage();
   });
 
   describe('instance', () => {
@@ -50,31 +41,18 @@ describe('app.effects', () => {
     });
   });
 
-  describe('AppLoad', () => {
-    it('should correctly return an array of WalletSetup and UserSetup actions, with correct parameters if user is logged in', () => {
-      localStorage.setItem(LOCAL_TOKEN_KEY, '123');
+  describe('ChatRoomsLoad', () => {
+    it('should correctly return ChatRoomsLoadSuccess', () => {
+      chatService.getChatRooms().subscribe((rooms: ChatRoom[]) => {
+        const action = new ChatActions.ChatRoomsLoad();
 
-      const action = new AppActions.AppLoad();
+        actions = hot('-a', {a: action});
+        const expected = cold('-b', {
+          b: new ChatActions.ChatRoomsLoadSuccess(rooms),
+        });
 
-      actions = hot('-a', {a: action});
-      const expected = cold('-(bc)', {
-        b: new WalletActions.WalletSetup(),
-        c: new UserActions.UserSetup()
-      });
-
-      expect(effects.AppLoad).toBeObservable(expected);
-    });
-
-    it('should correctly return an array of WalletCleanup and AuthCleanup actions, with no parameters if user is NOT logged in ', () => {
-      const action = new AppActions.AppLoad();
-
-      actions = hot('-a', {a: action});
-      const expected = cold('-(bc)', {
-        b: new WalletActions.WalletCleanup(),
-        c: new UserActions.UserCleanup(),
-      });
-
-      expect(effects.AppLoad).toBeObservable(expected);
+        expect(effects.ChatRoomsLoad).toBeObservable(expected);
+      })
     });
   });
 });

@@ -21,15 +21,3 @@ export interface User {
     bs: string;
   }
 }
-
-/*export interface State {
-  isLoaded: boolean;
-  activeChat: ChatRoom
-  chats: ChatRoom[];
-}
-
-export const initialState: State = {
-  isLoaded: false,
-  activeChat: null,
-  chats: []
-};*/

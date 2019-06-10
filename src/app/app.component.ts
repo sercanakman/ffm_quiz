@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AppStates} from './store/app.states';
 import {Store} from '@ngrx/store';
 import {ChatService} from './modules/chat/services/chat.service';
-import {User} from './store/user/user.state';
 import {AppLoad} from './store/app/app.actions';
+import {User} from './shared/interfaces/user';
 
 @Component({
   selector: 'app-root',

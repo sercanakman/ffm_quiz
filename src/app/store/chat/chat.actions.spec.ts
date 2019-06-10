@@ -1,10 +1,10 @@
-import {AppActionTypes, AppLoad} from './app.actions';
+import {ChatActionTypes, ChatRoomsLoad} from './chat.actions';
 
-describe('app.actions', () => {
-  describe('AppLoad', () => {
+describe('chat.actions', () => {
+  describe('ChatRoomsLoad', () => {
     it('should create an action', () => {
-      const action = new AppLoad();
-      expect({...action}).toEqual({type: AppActionTypes.APP_LOAD});
+      const action = new ChatRoomsLoad();
+      expect({...action}).toEqual({type: ChatActionTypes.CHAT_ROOMS_LOAD});
     });
   });
 });

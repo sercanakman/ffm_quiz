@@ -9,11 +9,18 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        /*
+          redirect user to rooms page if they hit the root url
+         */
         redirectTo: '/rooms',
         pathMatch: 'full'
       },
       {
         path: 'rooms',
+        /*
+          the name of this component can be changed according to
+          company naming conventions to ChatRoomsListComponent
+         */
         component: ChatRoomsComponent,
       },
       {

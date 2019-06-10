@@ -1,0 +1,9 @@
+  <form *ngIf="(appState$ | async).user" name="newMessageForm" #newMessageForm="ngForm" (ngSubmit)="sendMessage()" novalidate autocomplete="off">
+    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+    <div class="input-group">
+      <input type="text" class="form-control" id="newMessage" name="newMessage" [(ngModel)]="newMessage" placeholder="Write your message...">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit"><fa-icon [icon]="['fas', 'paper-plane']"></fa-icon></button>
+      </div>
+    </div>
+  </form>

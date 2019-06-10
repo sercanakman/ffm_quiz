@@ -1,17 +1,20 @@
 import {TestBed} from '@angular/core/testing';
-import {Store} from '@ngrx/store';
-import {AppStates} from '../app.states';
-import {initialState as initialAppState, State as AppState} from './app.state';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppStates, metaReducers, reducers, selectChatState} from '../app.states';
+import {initialState as initialChatState, State as ChatState} from './chat.state';
 import {provideMockStore} from '@ngrx/store/testing';
+import {provideMockActions} from '@ngrx/effects/testing';
+import {Observable} from 'rxjs';
 
-describe('AppState', () => {
+describe('ChatState', () => {
   let store: Store<AppStates>;
+  let actions: Observable<any>;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        provideMockStore({initialState: initialAppState})
+        StoreModule.forRoot(reducers, {metaReducers}),
       ],
-      providers: []
     });
     store = TestBed.get(Store);
   });
@@ -27,16 +30,17 @@ describe('AppState', () => {
   });
 
   describe('store', () => {
-    it('should have app key', () => {
-      expect(store.select('app')).toBeDefined();
+    it('should have chat key', () => {
+      expect(store.select(selectChatState)).toBeDefined();
     });
   });
 
-  describe('AppStore', () => {
-    it('should have app key with initialState', (done) => {
-      const appStore = store.select('app');
-      appStore.subscribe((state: AppState) => {
-        expect(state).toEqual(initialAppState);
+  describe('ChatStore', () => {
+    it('should have chat key with initialState', (done) => {
+      const chatStore = store.select(selectChatState);
+      chatStore.subscribe((state: ChatState) => {
+        console.log('stat', state);
+        expect(state).toEqual(initialChatState);
         done();
       });
     });

@@ -1,0 +1,10 @@
+<div class="row" *ngIf="(chatState$ | async) && (chatState$ | async).activeChat">
+  <div class="col-1">
+    <button type="button" class="btn btn-sm btn-dark" [routerLink]="['/rooms']" placement="right" ngbTooltip="Back to rooms">
+      <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+    </button>
+  </div>
+  <div class="col text-center">
+    <b>Room:</b>&nbsp;{{(chatState$ | async).activeChat.title}} <i class="text-muted">({{(chatState$ | async).activeChat.users.length}} users chatting)</i>
+  </div>
+</div>

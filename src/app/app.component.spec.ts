@@ -1,12 +1,22 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {provideMockActions} from '@ngrx/effects/testing';
+import {provideMockStore} from '@ngrx/store/testing';
+import {initialState as initialChatState} from './store/chat/chat.state';
+import {Observable} from 'rxjs';
 
 describe('AppComponent', () => {
+  let actions: Observable<any>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
+      ],
+      providers: [
+        provideMockActions(() => actions),
+        provideMockStore({initialState: initialChatState})
       ],
       declarations: [
         AppComponent
@@ -24,12 +34,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('ChatApp');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ChatApp!');
   });
 });

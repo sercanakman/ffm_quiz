@@ -22,6 +22,10 @@ export class ChatRoomsComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*
+      this triggers the effect which loads all room metadata to chatState$
+      which is async pipe'd in the template
+     */
     this.store.dispatch(new ChatRoomsLoad());
   }
 

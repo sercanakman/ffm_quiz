@@ -1,4 +1,4 @@
-import {ChatRoom} from '../../../store/chat/chat.state';
+import {ChatRoom} from '../interfaces/chat-room';
 
 export const rooms: ChatRoom[] = [
   {

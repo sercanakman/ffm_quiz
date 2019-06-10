@@ -1,5 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
 
+
+/*
+  used to extend components to fill height of the window
+  to simulate chat like experience
+ */
 html,
 body {
   min-height: 100vh;

@@ -1,10 +1,11 @@
 import {reducer} from './chat.reducer';
-import {ChatRoomLoad} from './chat.actions';
+import {ChatRoomsLoad} from './chat.actions';
+import {initialState as initialChatState} from './chat.state';
 
-describe('app.reducer', () => {
-  it('AppLoad correctly sets isLoaded to true', () => {
-    const newState = reducer(undefined, new ChatRoomLoad());
+describe('chat.reducer', () => {
+  it('ChatRoomsLoad should return the same state', () => {
+    const newState = reducer(undefined, new ChatRoomsLoad());
 
-    expect(newState.isLoaded).toBeTruthy();
+    expect(newState).toEqual(initialChatState);
   });
 });

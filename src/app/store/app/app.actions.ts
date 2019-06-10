@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {NAVIGATION_TABS} from './app.state';
-import {User} from '../user/user.state';
+import {User} from '../../shared/interfaces/user';
 
 export enum AppActionTypes {
   APP_LOAD = '[App] App Load',

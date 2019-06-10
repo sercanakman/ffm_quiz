@@ -1,4 +1,4 @@
-import {Message} from '../../../store/chat/chat.state';
+import {Message} from '../interfaces/message';
 
 export const messages: Message[] = [
   {

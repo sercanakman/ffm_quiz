@@ -1,4 +1,4 @@
-import {User} from '../user/user.state';
+import {User} from '../../shared/interfaces/user';
 
 export enum NAVIGATION_TABS {
   UserList = 'user-list',

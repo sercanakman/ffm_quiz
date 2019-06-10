@@ -1,0 +1,30 @@
+<ngb-accordion [closeOthers]="true" *ngIf="(chatState$ | async).activeChat">
+  <ngb-panel *ngFor="let user of (chatState$ | async).activeChat.users" [id]="user.id" >
+    <ng-template ngbPanelHeader let-opened="opened">
+      <div class="d-flex align-items-center justify-content-between">
+        <button [ngClass]="{'text-info': (chatState$ | async).activeChat.userId === user.id}" class="m-0 p-0 btn" ngbPanelToggle placement="right" ngbTooltip="Room Owner" [disableTooltip]="(chatState$ | async).activeChat.userId !== user.id">{{settings.showIds ? '(' + user.id + ') ' : ''}}{{settings.showNickname ? user.username.toLowerCase() : user.name}}</button>
+        <div placement="right" ngbTooltip="View Profile">
+          <button type="button" class="btn btn-sm btn-outline-dark ml-2" ngbPanelToggle>
+            <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <div class="row">
+        <div class="col">
+          <p><b>Username: </b> {{user.username.toLowerCase()}}</p>
+          <p><b>Name: </b> {{user.name}}</p>
+          <p><b>E-mail: </b> {{user.email}}</p>
+          <p>
+            <b>Address: </b> {{user.address.street}}, {{user.address.suite}} / {{user.address.city}}<br />
+            <i>{{user.address.zipcode}}</i>
+          </p>
+          <p><b>Phone: </b> {{user.phone}}</p>
+          <p><b>Website: </b> {{user.website}}</p>
+          <p><b>Company: </b> {{user.company.name}}</p>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

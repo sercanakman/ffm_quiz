@@ -1,0 +1,4 @@
+<div class="row" *ngIf="(chatState$ | async)">
+  <chat-user-list *ngIf="!(chatState$ | async).isSettingsOpen"></chat-user-list>
+  <chat-settings *ngIf="(chatState$ | async).isSettingsOpen"></chat-settings>
+</div>

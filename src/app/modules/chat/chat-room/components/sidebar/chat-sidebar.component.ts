@@ -10,7 +10,7 @@ import {Store} from '@ngrx/store';
   styleUrls: ['./chat-sidebar.component.scss']
 })
 export class ChatSidebarComponent implements OnInit {
-  @HostBinding('class') class = 'col-2';
+  @HostBinding('class') class = 'col-2 col-sm-5 col-md-4 col-lg-3 col-xl-2';
   @HostBinding('id') id = 'users-list';
   public chatState$: Observable<ChatState>;
   constructor(

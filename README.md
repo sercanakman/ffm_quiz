@@ -41,3 +41,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 No end-to-end tests are written for this project.
+
+# Second Objective
+You can fiddle around with the second objective here: https://jsbin.com/zamogoq/edit?js,console
+It can also be found here in the root folder with name `second-objective.ts` and `second-objective.js`

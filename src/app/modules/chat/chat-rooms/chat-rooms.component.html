@@ -8,7 +8,7 @@
   </div>
   <div id="rooms-list" class="card-body">
     <div class="row">
-      <div class="col-2 mb-2" *ngFor="let room of (chatState$ | async).chatRooms" [id]="room.id">
+      <div class="col-2 col-sm-6 col-md-4 col-lg-3 mb-2" *ngFor="let room of (chatState$ | async).chatRooms" [id]="room.id">
         <chat-room-card [room]="room"></chat-room-card>
       </div>
     </div>

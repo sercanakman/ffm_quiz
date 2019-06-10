@@ -1,5 +1,5 @@
 <ng-container *ngIf="(chatState$ | async).activeChat">
-  <div class="card mb-2" #messageElements id="message" *ngFor="let message of (chatState$ | async).activeChat.messages">
+  <div class="card mb-2" #messageElements id="message" *ngFor="let message of (chatState$ | async).activeChat.messages" [style.font-size.px]="(chatState$ | async).settings.fontSize">
     <div class="card-body">
       <p class="card-title mb-0">
         <b>{{(chatState$ | async).settings.showIds ? '(' + message.user.id + ') ' : ''}}{{(chatState$ | async).settings.showNickname ? message.user.username.toLowerCase() : message.user.name}}</b>

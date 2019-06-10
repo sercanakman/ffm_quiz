@@ -15,7 +15,6 @@ export class ChatRoomMessagesListComponent implements OnInit {
   @HostBinding('id') id = 'messages-list';
   @Input() chatState$: Observable<ChatState>;
   @Input() settings: Settings;
-  @HostBinding('style.font-size.px') fontSize = this.settings && this.settings.fontSize || 16;
 
   constructor(
     private store: Store<AppStates>,

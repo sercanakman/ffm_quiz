@@ -28,6 +28,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 - Code is refactored into maintainable chunks
 - Code is tested with regression & unit tests to match enterprise requirements
 - Code contains lazy-loading for chat module but as there are not other modules, there is no way to leverage its effects
+- Code is written disregarding mobile responsiveness (as not required in the spec). Some areas that are noticed are made mobile responsive
 
 ## Build
 

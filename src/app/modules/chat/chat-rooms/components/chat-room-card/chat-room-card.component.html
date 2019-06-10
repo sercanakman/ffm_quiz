@@ -3,7 +3,7 @@
     <!--
       there could be a thumbnail included here according to the use of chat room
     -->
-    <p><a class="card-title" [routerLink]="['', room.id]">{{room.title}}</a>&nbsp;<i class="text-muted">({{room.users.length}} users chatting)</i></p>
-    <p class="card-text">{{room.body}}</p>
+    <p><a class="card-title" [routerLink]="['', room.id]">{{truncateText(room.title)}}...</a>&nbsp;<i class="text-muted">({{room.users.length}} users chatting)</i></p>
+    <p class="card-text">{{truncateText(room.body)}}...</p>
   </div>
 </div>

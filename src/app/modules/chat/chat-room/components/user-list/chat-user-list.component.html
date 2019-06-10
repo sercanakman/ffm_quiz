@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center justify-content-between">
         <button [ngClass]="{'text-info': (chatState$ | async).activeChat.userId === user.id}" class="m-0 p-0 btn" ngbPanelToggle placement="right" ngbTooltip="Room Owner" [disableTooltip]="(chatState$ | async).activeChat.userId !== user.id">{{settings.showIds ? '(' + user.id + ') ' : ''}}{{settings.showNickname ? user.username.toLowerCase() : user.name}}</button>
         <div placement="right" ngbTooltip="View Profile">
-          <button type="button" class="btn btn-sm btn-outline-dark ml-2 d-sm-none" ngbPanelToggle>
+          <button type="button" class="btn btn-sm btn-outline-dark ml-2 d-none d-sm-none d-md-inline-block d-lg-inline-block d-xl-inline-block" ngbPanelToggle>
             <fa-icon [icon]="['fas', 'eye']"></fa-icon>
           </button>
         </div>

@@ -1,11 +1,10 @@
 :host {
-  min-height: 75vh;
-  max-height: 75vh;
   overflow-y: scroll;
 
   .card-body {
     padding: .25rem 1rem;
     white-space: pre-line;
+    overflow: hidden;
 
     .card-date {
       white-space: initial;

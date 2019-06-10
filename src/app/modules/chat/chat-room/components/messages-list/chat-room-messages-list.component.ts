@@ -11,7 +11,7 @@ import {Store} from '@ngrx/store';
   styleUrls: ['./chat-room-messages-list.component.scss']
 })
 export class ChatRoomMessagesListComponent implements OnInit {
-  @HostBinding('class') class = 'col';
+  @HostBinding('class') class = 'col h-100';
   @HostBinding('id') id = 'messages-list';
   @Input() chatState$: Observable<ChatState>;
   @Input() settings: Settings;

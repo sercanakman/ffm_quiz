@@ -1,4 +1,4 @@
-<div class="card text-center" *ngIf="(chatState$ | async) && (chatState$ | async).activeChat">
+<div id="chat-room" class="card text-center" *ngIf="(chatState$ | async) && (chatState$ | async).activeChat">
   <div class="card-header">
     <chat-room-header></chat-room-header>
   </div>

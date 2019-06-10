@@ -1,12 +1,17 @@
 :host {
+  height: 100%;
+  max-height: 100vh;
   ::ng-deep {
+    .card {
+      max-height: 100vh;
+    }
     .card-body {
       text-align: left;
     }
 
     #rooms-list {
       min-height: 75vh;
-      max-height: 75vh;
+
       overflow-y: scroll;
     }
   }

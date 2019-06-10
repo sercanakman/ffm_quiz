@@ -13,7 +13,7 @@ import {ChatRoomSettingChange} from '../../../../../store/chat/chat.actions';
   styleUrls: ['./chat-user-list.component.scss']
 })
 export class ChatUserListComponent implements OnInit {
-  @HostBinding('class') class = 'col';
+  @HostBinding('class') class = 'col h-100';
   public settings: Settings;
   public chatState$: Observable<ChatState>;
   constructor(

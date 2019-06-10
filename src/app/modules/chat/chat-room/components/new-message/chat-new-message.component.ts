@@ -31,6 +31,9 @@ export class ChatNewMessageComponent implements OnInit {
   }
 
   sendMessage() {
+    if (this.newMessage === '') {
+      return;
+    }
     this.scrollInterval$ = interval(100);
     this.appState$
       .pipe(
